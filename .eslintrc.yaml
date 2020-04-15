@@ -1,0 +1,36 @@
+root: true
+env:
+  browser: true
+parser: "@typescript-eslint/parser"
+parserOptions:
+  project: "./tsconfig.json"
+plugins:
+  - "@typescript-eslint"
+  - "jsx-a11y"
+  - "react-hooks"
+  - "simple-import-sort"
+extends:
+  - "eslint:recommended"
+  - "airbnb-typescript"
+  - "plugin:import/errors"
+  - "plugin:import/warnings"
+  - "plugin:@typescript-eslint/eslint-recommended"
+  - "plugin:@typescript-eslint/recommended"
+  - "plugin:react/recommended"
+  - "plugin:react-hooks/recommended"
+  - "plugin:jsx-a11y/recommended"
+  - "plugin:prettier/recommended"
+  - "prettier/react"
+  - "prettier/@typescript-eslint"
+rules:
+  simple-import-sort/sort: "error"
+settings:
+  react:
+    version: "detect"
+  import/parsers:
+    "@typescript-eslint/parser":
+      - ".ts"
+      - ".tsx"
+  import/resolver:
+    node:
+      extensions: [".js", ".jsx", ".ts", ".tsx"]
