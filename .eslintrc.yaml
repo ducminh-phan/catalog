@@ -23,7 +23,16 @@ extends:
   - "prettier/react"
   - "prettier/@typescript-eslint"
 rules:
-  simple-import-sort/sort: "error"
+  simple-import-sort/sort:
+    - "error"
+    - groups:
+        - ["^\\u0000"]
+        - ["^@?\\w"]
+        # Since we are using absolute imports, the directories inside src
+        # must be specified here until there is a solution
+        # https://github.com/lydell/eslint-plugin-simple-import-sort/issues/31
+        - ["^(actions|assets|components|contexts|reducers|store|utils)(/.*|$)"]
+        - ["^\\."]
 settings:
   react:
     version: "detect"
@@ -34,3 +43,5 @@ settings:
   import/resolver:
     node:
       extensions: [".js", ".jsx", ".ts", ".tsx"]
+      paths:
+        - "src"

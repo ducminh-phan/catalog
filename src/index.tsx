@@ -3,15 +3,18 @@ import "./assets/styles/index.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import * as serviceWorker from "serviceWorker";
 
-import App from "./components/App";
-import * as serviceWorker from "./serviceWorker";
-import store from "./store";
+import App from "components/App";
+import { AuthProvider } from "contexts/auth";
+import store from "store";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root"),
