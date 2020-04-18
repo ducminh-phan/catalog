@@ -8,9 +8,8 @@ import {
 } from "@material-ui/core";
 import { createAction, createReducer, PrepareAction } from "@reduxjs/toolkit";
 import React, { ChangeEvent } from "react";
-import { connect, ConnectedProps } from "react-redux";
 
-import { register } from "actions/auth";
+import { useAuth } from "contexts/auth";
 
 interface ChangeInputPayload {
   name: string;
@@ -60,11 +59,7 @@ const reducer = createReducer(initialState, (builder) =>
   }),
 );
 
-const connector = connect(null, { register });
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type Props = PropsFromRedux;
-
-const Register = (props: Props): React.ReactElement => {
+const Register = (): React.ReactElement => {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = (): void => {
@@ -87,9 +82,11 @@ const Register = (props: Props): React.ReactElement => {
     dispatch,
   ] = React.useReducer(reducer, initialState);
 
+  const { register } = useAuth();
+
   const handleRegister = (): void => {
     setOpen(false);
-    props.register({ username, password, email, name });
+    register({ username, password, email, name });
   };
 
   return (
@@ -158,7 +155,20 @@ const Register = (props: Props): React.ReactElement => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleRegister} color="primary">
+          <Button
+            onClick={handleRegister}
+            color="primary"
+            disabled={
+              !!(
+                !username ||
+                !password ||
+                !email ||
+                !name ||
+                usernameErrorMessage ||
+                passwordErrorMessage
+              )
+            }
+          >
             Register
           </Button>
         </DialogActions>
@@ -167,4 +177,4 @@ const Register = (props: Props): React.ReactElement => {
   );
 };
 
-export default connector(Register);
+export default Register;

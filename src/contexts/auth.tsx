@@ -1,28 +1,84 @@
-import React, { createContext, ReactElement, useContext } from "react";
+import React, {
+  createContext,
+  PropsWithChildren,
+  ReactElement,
+  useContext,
+} from "react";
+import { useAsync } from "react-async";
 
-import { logout } from "actions/auth";
+import * as auth from "utils/auth";
 import storage from "utils/storage";
 
+import { useNotification } from "./notification";
+
 interface AuthContextValue {
-  isLoggedIn: boolean;
-  logout: typeof logout;
+  data: auth.AppData | null;
+  register: (payload: auth.RegisterRequest) => void;
+  login: (payload: auth.LoginRequest) => void;
+  logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-const AuthProvider = (props: object): ReactElement => {
-  const isLoggedIn: boolean = storage.getToken() !== null;
+export const AuthProvider = (
+  props: PropsWithChildren<object>,
+): ReactElement => {
+  const [firstAttemptFinished, setFirstAttemptFinished] = React.useState(false);
+  const { data = null, error, isRejected, isSettled, reload } = useAsync({
+    promiseFn: auth.getAppData,
+  });
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <AuthContext.Provider value={{ isLoggedIn, logout }} {...props} />;
+  React.useLayoutEffect(() => {
+    if (isSettled) {
+      setFirstAttemptFinished(true);
+    }
+  }, [isSettled]);
+
+  const { setNotification } = useNotification();
+
+  if (!firstAttemptFinished) {
+    if (isRejected) {
+      setNotification("error", error?.message ?? "Something went wrong");
+    }
+
+    return <div />;
+  }
+
+  const login = (payload: auth.LoginRequest): void => {
+    auth
+      .login(payload)
+      .then(reload)
+      .catch(({ message }) => {
+        setNotification("error", message);
+      });
+  };
+
+  const register = (payload: auth.RegisterRequest): void => {
+    auth
+      .register(payload)
+      .then(reload)
+      .catch(({ message }) => {
+        setNotification("error", message);
+      });
+  };
+
+  const logout = (): void => {
+    Promise.resolve(storage.removeToken()).then(reload);
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{ data, login, logout, register }}
+      /* eslint-disable-next-line react/jsx-props-no-spreading */
+      {...props}
+    />
+  );
 };
 
-const useAuth = (): AuthContextValue => {
+export const useAuth = (): AuthContextValue => {
   const context = useContext<AuthContextValue | undefined>(AuthContext);
   if (context === undefined) {
-    throw new Error(`useAuth must be used within a AuthProvider`);
+    throw new Error("useAuth must be used within a AuthProvider");
   }
   return context;
 };
-
-export { AuthProvider, useAuth };

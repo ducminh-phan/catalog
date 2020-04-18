@@ -7,11 +7,11 @@ import AuthenticatedBar from "./AuthenticatedBar";
 import UnauthenticatedBar from "./UnauthenticatedBar";
 
 const Header = (): ReactElement => {
-  const { isLoggedIn } = useAuth();
+  const { data } = useAuth();
 
   return (
     <AppBar>
-      {isLoggedIn ? <AuthenticatedBar /> : <UnauthenticatedBar />}
+      {data !== null ? <AuthenticatedBar /> : <UnauthenticatedBar />}
     </AppBar>
   );
 };

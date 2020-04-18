@@ -8,9 +8,8 @@ import {
 } from "@material-ui/core";
 import { createAction, createReducer, PrepareAction } from "@reduxjs/toolkit";
 import React, { ChangeEvent } from "react";
-import { connect, ConnectedProps } from "react-redux";
 
-import { login } from "actions/auth";
+import { useAuth } from "contexts/auth";
 
 interface ChangeInputPayload {
   name: string;
@@ -43,11 +42,7 @@ const reducer = createReducer(initialState, (builder) =>
   }),
 );
 
-const connector = connect(null, { login });
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type Props = PropsFromRedux;
-
-const Login = (props: Props): React.ReactElement => {
+const Login = (): React.ReactElement => {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = (): void => {
@@ -63,9 +58,11 @@ const Login = (props: Props): React.ReactElement => {
     initialState,
   );
 
+  const { login } = useAuth();
+
   const handleLogin = (): void => {
     setOpen(false);
-    props.login({ username, password });
+    login({ username, password });
   };
 
   return (
@@ -108,7 +105,11 @@ const Login = (props: Props): React.ReactElement => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleLogin} color="primary">
+          <Button
+            onClick={handleLogin}
+            color="primary"
+            disabled={!!(!username || !password)}
+          >
             Login
           </Button>
         </DialogActions>
@@ -117,4 +118,4 @@ const Login = (props: Props): React.ReactElement => {
   );
 };
 
-export default connector(Login);
+export default Login;
