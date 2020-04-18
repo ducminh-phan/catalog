@@ -1,4 +1,3 @@
-import { AppBar } from "@material-ui/core";
 import React, { ReactElement } from "react";
 
 import { useAuth } from "contexts/auth";
@@ -9,11 +8,7 @@ import UnauthenticatedBar from "./UnauthenticatedBar";
 const Header = (): ReactElement => {
   const { data } = useAuth();
 
-  return (
-    <AppBar>
-      {data !== null ? <AuthenticatedBar /> : <UnauthenticatedBar />}
-    </AppBar>
-  );
+  return data !== null ? <AuthenticatedBar /> : <UnauthenticatedBar />;
 };
 
 export default Header;
