@@ -1,7 +1,7 @@
+const tokenKey = "token";
+
 class Storage {
   private readonly prefix: string;
-
-  private static readonly tokenKey: "token";
 
   constructor(localStoragePrefix: string) {
     this.prefix = localStoragePrefix;
@@ -16,11 +16,11 @@ class Storage {
   removeItem = (key: string): void =>
     localStorage.removeItem(`${this.prefix}:${key}`);
 
-  getToken = (): string | null => this.getItem(Storage.tokenKey);
+  getToken = (): string | null => this.getItem(tokenKey);
 
-  setToken = (token: string): void => this.setItem(Storage.tokenKey, token);
+  setToken = (token: string): void => this.setItem(tokenKey, token);
 
-  removeToken = (): void => this.removeItem(Storage.tokenKey);
+  removeToken = (): void => this.removeItem(tokenKey);
 }
 
 export default new Storage(process.env.REACT_APP_LOCAL_STORAGE_PREFIX);
