@@ -85,7 +85,6 @@ const Register = (): React.ReactElement => {
   const { register } = useAuth();
 
   const handleRegister = (): void => {
-    setOpen(false);
     register({ username, password, email, name });
   };
 

@@ -77,7 +77,10 @@ export const AuthProvider = (
         ),
       )
       .catch(({ message }) => {
-        setNotification({ severity: "error", message });
+        setNotification({
+          severity: "error",
+          message: Object.values(message)[0] as string,
+        });
       });
   };
 
