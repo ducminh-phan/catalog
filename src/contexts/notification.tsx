@@ -1,18 +1,23 @@
 import React, {
   createContext,
+  Dispatch,
   PropsWithChildren,
   ReactElement,
+  SetStateAction,
   useContext,
   useState,
 } from "react";
 
 type Severity = "error" | "warning" | "info" | "success";
 
-interface NotificationContextValue {
+type Notification = {
   severity: Severity;
   message: string;
-  setNotification: (severity: Severity, message: string) => void;
-}
+};
+
+type NotificationContextValue = Notification & {
+  setNotification: Dispatch<SetStateAction<Notification>>;
+};
 
 const NotificationContext = createContext<NotificationContextValue | undefined>(
   undefined,
@@ -21,13 +26,10 @@ const NotificationContext = createContext<NotificationContextValue | undefined>(
 export const NotificationProvider = (
   props: PropsWithChildren<object>,
 ): ReactElement => {
-  const [severity, setSeverity] = useState<Severity>("info");
-  const [message, setMessage] = useState<string>("");
-
-  const setNotification = (_severity: Severity, _message: string): void => {
-    setSeverity(_severity);
-    setMessage(_message);
-  };
+  const [{ severity, message }, setNotification] = useState<Notification>({
+    severity: "info",
+    message: "",
+  });
 
   return (
     <NotificationContext.Provider

@@ -61,7 +61,6 @@ const Login = (): React.ReactElement => {
   const { login } = useAuth();
 
   const handleLogin = (): void => {
-    setOpen(false);
     login({ username, password });
   };
 

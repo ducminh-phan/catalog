@@ -38,7 +38,10 @@ export const AuthProvider = (
 
   if (!firstAttemptFinished) {
     if (isRejected) {
-      setNotification("error", error?.message ?? "Something went wrong");
+      setNotification({
+        severity: "error",
+        message: error?.message ?? "Something went wrong",
+      });
     }
 
     return <div />;
@@ -48,8 +51,16 @@ export const AuthProvider = (
     auth
       .login(payload)
       .then(reload)
+      .then(() =>
+        Promise.resolve(
+          setNotification({
+            severity: "success",
+            message: "Login successfully",
+          }),
+        ),
+      )
       .catch(({ message }) => {
-        setNotification("error", message);
+        setNotification({ severity: "error", message });
       });
   };
 
@@ -57,13 +68,30 @@ export const AuthProvider = (
     auth
       .register(payload)
       .then(reload)
+      .then(() =>
+        Promise.resolve(
+          setNotification({
+            severity: "success",
+            message: "Register successfully",
+          }),
+        ),
+      )
       .catch(({ message }) => {
-        setNotification("error", message);
+        setNotification({ severity: "error", message });
       });
   };
 
   const logout = (): void => {
-    Promise.resolve(storage.removeToken()).then(reload);
+    Promise.resolve(storage.removeToken())
+      .then(() =>
+        Promise.resolve(
+          setNotification({
+            severity: "success",
+            message: "Logout successfully",
+          }),
+        ),
+      )
+      .then(reload);
   };
 
   return (

@@ -8,7 +8,7 @@ const Notification = (): ReactElement => {
   const { message, severity, setNotification } = useNotification();
 
   const handleClose = (): void => {
-    setNotification(severity, "");
+    setNotification({ severity, message: "" });
   };
 
   return (
