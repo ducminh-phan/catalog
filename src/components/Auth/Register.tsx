@@ -102,7 +102,6 @@ const Register = (): React.ReactElement => {
         <DialogTitle id="register-form-title">Register</DialogTitle>
         <DialogContent>
           <TextField
-            autoFocus
             label="Username"
             onChange={(e): void => {
               dispatch(changeInput(e));
