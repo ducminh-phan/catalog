@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { normalize } from "normalizr";
 
-import { fetchItems } from "actions/item";
+import { editItem, fetchItems } from "actions/item";
 import * as schemas from "utils/schemas";
 import * as types from "utils/types";
 
@@ -20,14 +20,27 @@ const initialState: ItemState = {
 };
 
 export default createReducer(initialState, (builder) =>
-  builder.addCase(fetchItems.fulfilled, (state, action) => {
-    const { payload } = action;
-    const normalized = normalize(payload.items, schemas.items);
+  builder
+    .addCase(fetchItems.fulfilled, (state, action) => {
+      const { payload } = action;
+      const normalized = normalize(payload.items, schemas.items);
 
-    return {
-      totalItems: payload.totalItems,
-      items: normalized.entities.items ?? {},
-      ids: normalized.result,
-    };
-  }),
+      return {
+        totalItems: payload.totalItems,
+        items: normalized.entities.items ?? {},
+        ids: normalized.result,
+      };
+    })
+    .addCase(editItem.fulfilled, (state, action) => {
+      const { payload } = action;
+      const normalized = normalize(payload, schemas.item);
+
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          ...normalized.entities.items,
+        },
+      };
+    }),
 );

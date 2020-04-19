@@ -1,4 +1,4 @@
-import { Json, snakeToCamel } from "./misc";
+import { camelToSnake, Json, snakeToCamel } from "./misc";
 import storage from "./storage";
 
 type Method = "get" | "post" | "put";
@@ -7,7 +7,7 @@ class Request {
   static request = async <T extends Json>(
     endpoint: string,
     method: Method,
-    body?: object,
+    body?: Json,
   ): Promise<T> => {
     const token = storage.getToken();
     const headers: HeadersInit = {
@@ -24,7 +24,7 @@ class Request {
     };
 
     if (body) {
-      config.body = JSON.stringify(body);
+      config.body = JSON.stringify(camelToSnake(body));
       headers["Content-Type"] = "application/json";
     }
 
@@ -45,10 +45,10 @@ class Request {
   static get = <T extends Json>(endpoint: string): Promise<T> =>
     Request.request(endpoint, "get");
 
-  static post = <T extends Json>(endpoint: string, body: object): Promise<T> =>
+  static post = <T extends Json>(endpoint: string, body: Json): Promise<T> =>
     Request.request<T>(endpoint, "post", body);
 
-  static put = <T extends Json>(endpoint: string, body: object): Promise<T> =>
+  static put = <T extends Json>(endpoint: string, body: Json): Promise<T> =>
     Request.request<T>(endpoint, "put", body);
 }
 

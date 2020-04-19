@@ -1,13 +1,11 @@
 import {
   Box,
-  Button,
   List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
   Paper,
 } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
 import Pagination from "@material-ui/lab/Pagination";
 import { RouteComponentProps } from "@reach/router";
 import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
@@ -17,6 +15,8 @@ import { fetchItems } from "actions/item";
 import { useAuth } from "contexts/auth";
 import { RootState } from "reducers";
 import * as types from "utils/types";
+
+import EditItem from "./EditItem";
 
 interface ItemListProps extends RouteComponentProps {
   categoryId?: string;
@@ -68,13 +68,11 @@ const ItemList = (props: Props): ReactElement => {
             <ListItem key={c.id}>
               <ListItemText primary={c.name} secondary={c.description} />
               {data?.user.id === c.userId ? (
-                <div />
-              ) : (
                 <ListItemSecondaryAction>
-                  <Button>
-                    <EditIcon />
-                  </Button>
+                  <EditItem categoryId={categoryId} item={c} />
                 </ListItemSecondaryAction>
+              ) : (
+                <div />
               )}
             </ListItem>
           ))}
