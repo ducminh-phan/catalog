@@ -8,3 +8,11 @@ export type Category = {
   name: string;
   description: string;
 };
+
+export type Item = {
+  id: number;
+  userId: number;
+  name: string;
+  description: string;
+  price: number;
+};

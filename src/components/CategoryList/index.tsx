@@ -1,5 +1,13 @@
-import { Box, List, ListItem, ListItemText } from "@material-ui/core";
+import {
+  Button,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+} from "@material-ui/core";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import Pagination from "@material-ui/lab/Pagination";
+import { Link } from "@reach/router";
 import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 
@@ -50,12 +58,15 @@ const CategoryList = (props: Props): ReactElement => {
         {Object.values(categories).map((c: types.Category) => (
           <ListItem key={c.id}>
             <ListItemText primary={c.name} secondary={c.description} />
+            <ListItemSecondaryAction>
+              <Button component={Link} to={`/categories/${c.id}`}>
+                <ArrowRightIcon />
+              </Button>
+            </ListItemSecondaryAction>
           </ListItem>
         ))}
       </List>
-      <Box textAlign="center">
-        <Pagination count={pageCount} page={page} onChange={handleChangePage} />
-      </Box>
+      <Pagination count={pageCount} page={page} onChange={handleChangePage} />
     </div>
   );
 };

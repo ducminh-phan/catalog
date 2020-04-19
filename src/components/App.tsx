@@ -3,33 +3,48 @@ import "assets/styles/App.css";
 import {
   AppBar,
   Box,
+  Button,
   Container,
   Grid,
   Paper,
   Toolbar,
 } from "@material-ui/core";
+import { Link, Router } from "@reach/router";
 import React, { ReactElement } from "react";
 
 import CategoryList from "./CategoryList";
 import Header from "./Header";
+import ItemList from "./ItemList";
 
 function App(): ReactElement {
   return (
     <>
       <AppBar position="static">
-        <Toolbar>
-          <Header />
-        </Toolbar>
-      </AppBar>
-      <Box p={1}>
         <Container>
-          <Grid container>
-            <Grid item xs={4}>
+          <Toolbar>
+            <Box flexGrow={1}>
+              <Button color="inherit" component={Link} to="/">
+                Home
+              </Button>
+            </Box>
+            <Header />
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <Box p={2}>
+        <Container>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
               <Paper>
-                <Box p={1}>
+                <Box p={2}>
                   <CategoryList />
                 </Box>
               </Paper>
+            </Grid>
+            <Grid item xs={6}>
+              <Router>
+                <ItemList path="/categories/:categoryId" />
+              </Router>
             </Grid>
           </Grid>
         </Container>
