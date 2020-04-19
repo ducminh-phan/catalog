@@ -4,43 +4,24 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField,
 } from "@material-ui/core";
-import { createAction, createReducer, PrepareAction } from "@reduxjs/toolkit";
-import React, { ChangeEvent } from "react";
+import { makeRequired, makeValidate, TextField } from "mui-rff";
+import React, { ReactNode } from "react";
+import { Form } from "react-final-form";
+import * as yup from "yup";
 
 import { useAuth } from "contexts/auth";
 
-interface ChangeInputPayload {
-  name: string;
-  value: string;
-}
+const schema = yup.object().shape({
+  username: yup.string().required(),
+  password: yup.string().required(),
+});
 
-const changeInput = createAction<PrepareAction<ChangeInputPayload>>(
-  "login/changeInput",
-  ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => ({
-    payload: {
-      name,
-      value,
-    },
-  }),
-);
+const validate = makeValidate(schema);
 
-const initialState = {
-  username: "",
-  password: "",
-};
+const required = makeRequired(schema);
 
-const reducer = createReducer(initialState, (builder) =>
-  builder.addCase(changeInput, (state, action) => {
-    const { name, value } = action.payload;
-
-    return {
-      ...state,
-      [name]: value,
-    };
-  }),
-);
+type FormData = yup.InferType<typeof schema>;
 
 const Login = (): React.ReactElement => {
   const [open, setOpen] = React.useState(false);
@@ -53,15 +34,10 @@ const Login = (): React.ReactElement => {
     setOpen(false);
   };
 
-  const [{ username, password }, dispatch] = React.useReducer(
-    reducer,
-    initialState,
-  );
-
   const { login } = useAuth();
 
-  const handleLogin = (): void => {
-    login({ username, password });
+  const handleLogin = (data: FormData): void => {
+    login(data);
   };
 
   return (
@@ -72,45 +48,41 @@ const Login = (): React.ReactElement => {
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="register-form-title"
+        aria-labelledby="login-form-title"
         fullWidth
       >
-        <DialogTitle id="register-form-title">Login</DialogTitle>
+        <DialogTitle id="login-form-title">Login</DialogTitle>
         <DialogContent>
-          <TextField
-            label="Username"
-            onChange={(e): void => {
-              dispatch(changeInput(e));
-            }}
-            name="username"
-            value={username}
-            required
-            fullWidth
-          />
-          <TextField
-            label="Password"
-            type="password"
-            onChange={(e): void => {
-              dispatch(changeInput(e));
-            }}
-            name="password"
-            value={password}
-            required
-            fullWidth
+          <Form
+            onSubmit={handleLogin}
+            validate={validate}
+            render={({ handleSubmit, invalid }): ReactNode => (
+              <form onSubmit={handleSubmit} noValidate>
+                <TextField
+                  label="Username"
+                  name="username"
+                  required={required.username}
+                  fullWidth
+                />
+                <TextField
+                  label="Password"
+                  name="password"
+                  type="password"
+                  required={required.password}
+                  fullWidth
+                />
+                <DialogActions>
+                  <Button type="button" onClick={handleClose}>
+                    Cancel
+                  </Button>
+                  <Button color="primary" type="submit" disabled={invalid}>
+                    Login
+                  </Button>
+                </DialogActions>
+              </form>
+            )}
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button
-            onClick={handleLogin}
-            color="primary"
-            disabled={!!(!username || !password)}
-          >
-            Login
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );

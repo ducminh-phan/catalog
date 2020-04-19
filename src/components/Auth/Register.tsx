@@ -4,60 +4,26 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField,
 } from "@material-ui/core";
-import { createAction, createReducer, PrepareAction } from "@reduxjs/toolkit";
-import React, { ChangeEvent } from "react";
+import { makeRequired, makeValidate, TextField } from "mui-rff";
+import React, { ReactNode } from "react";
+import { Form } from "react-final-form";
+import * as yup from "yup";
 
 import { useAuth } from "contexts/auth";
 
-interface ChangeInputPayload {
-  name: string;
-  value: string;
-}
+const schema = yup.object().shape({
+  username: yup.string().min(5).required().label("User name"),
+  password: yup.string().min(9).required(),
+  email: yup.string().email("Not a valid email").required(),
+  name: yup.string().required(),
+});
 
-const changeInput = createAction<PrepareAction<ChangeInputPayload>>(
-  "register/changeInput",
-  ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => ({
-    payload: {
-      name,
-      value,
-    },
-  }),
-);
+const validate = makeValidate(schema);
 
-const initialState = {
-  username: "",
-  password: "",
-  email: "",
-  name: "",
-  usernameErrorMessage: "",
-  passwordErrorMessage: "",
-};
+const required = makeRequired(schema);
 
-const reducer = createReducer(initialState, (builder) =>
-  builder.addCase(changeInput, (state, action) => {
-    const { name, value } = action.payload;
-    let { usernameErrorMessage, passwordErrorMessage } = state;
-
-    if (name === "username") {
-      usernameErrorMessage =
-        value.length < 5 ? "Username must be at least 5 characters." : "";
-    }
-
-    if (name === "password") {
-      passwordErrorMessage =
-        value.length < 9 ? "Password must be at least 9 characters." : "";
-    }
-
-    return {
-      ...state,
-      [name]: value,
-      usernameErrorMessage,
-      passwordErrorMessage,
-    };
-  }),
-);
+type FormData = yup.InferType<typeof schema>;
 
 const Register = (): React.ReactElement => {
   const [open, setOpen] = React.useState(false);
@@ -70,22 +36,10 @@ const Register = (): React.ReactElement => {
     setOpen(false);
   };
 
-  const [
-    {
-      username,
-      password,
-      email,
-      name,
-      usernameErrorMessage,
-      passwordErrorMessage,
-    },
-    dispatch,
-  ] = React.useReducer(reducer, initialState);
-
   const { register } = useAuth();
 
-  const handleRegister = (): void => {
-    register({ username, password, email, name });
+  const handleRegister = (data: FormData): void => {
+    register(data);
   };
 
   return (
@@ -101,75 +55,49 @@ const Register = (): React.ReactElement => {
       >
         <DialogTitle id="register-form-title">Register</DialogTitle>
         <DialogContent>
-          <TextField
-            label="Username"
-            onChange={(e): void => {
-              dispatch(changeInput(e));
-            }}
-            error={!!usernameErrorMessage}
-            helperText={usernameErrorMessage}
-            name="username"
-            value={username}
-            required
-            fullWidth
-          />
-          <TextField
-            label="Password"
-            type="password"
-            onChange={(e): void => {
-              dispatch(changeInput(e));
-            }}
-            error={!!passwordErrorMessage}
-            helperText={passwordErrorMessage}
-            name="password"
-            value={password}
-            required
-            fullWidth
-          />
-          <TextField
-            label="Email Address"
-            type="email"
-            onChange={(e): void => {
-              dispatch(changeInput(e));
-            }}
-            name="email"
-            value={email}
-            required
-            fullWidth
-          />
-          <TextField
-            label="Name"
-            type="text"
-            onChange={(e): void => {
-              dispatch(changeInput(e));
-            }}
-            name="name"
-            value={name}
-            required
-            fullWidth
+          <Form
+            onSubmit={handleRegister}
+            validate={validate}
+            render={({ handleSubmit, invalid }): ReactNode => (
+              <form onSubmit={handleSubmit} noValidate>
+                <TextField
+                  label="User name"
+                  name="username"
+                  required={required.username}
+                  fullWidth
+                />
+                <TextField
+                  label="Password"
+                  name="password"
+                  type="password"
+                  required={required.password}
+                  fullWidth
+                />
+                <TextField
+                  label="Email"
+                  name="email"
+                  type="email"
+                  required={required.email}
+                  fullWidth
+                />
+                <TextField
+                  label="Name"
+                  name="name"
+                  required={required.name}
+                  fullWidth
+                />
+                <DialogActions>
+                  <Button type="button" onClick={handleClose}>
+                    Cancel
+                  </Button>
+                  <Button color="primary" type="submit" disabled={invalid}>
+                    Register
+                  </Button>
+                </DialogActions>
+              </form>
+            )}
           />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button
-            onClick={handleRegister}
-            color="primary"
-            disabled={
-              !!(
-                !username ||
-                !password ||
-                !email ||
-                !name ||
-                usernameErrorMessage ||
-                passwordErrorMessage
-              )
-            }
-          >
-            Register
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );
