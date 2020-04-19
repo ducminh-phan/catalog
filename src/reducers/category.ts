@@ -25,7 +25,7 @@ export default createReducer(initialState, (builder) =>
     const normalized = normalize(payload.categories, schemas.categories);
 
     return {
-      totalCategories: payload.total_categories,
+      totalCategories: payload.totalCategories,
       categories: normalized.entities.categories ?? state.categories,
       ids: normalized.result,
     };

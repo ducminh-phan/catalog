@@ -1,29 +1,29 @@
 import Request from "./api";
 import storage from "./storage";
 
-export interface LoginRequest {
+export type LoginRequest = {
   username: string;
   password: string;
-}
+};
 
-interface LoginResponse {
-  access_token: string;
-}
+type LoginResponse = {
+  accessToken: string;
+};
 
-export interface RegisterRequest {
+export type RegisterRequest = {
   username: string;
   password: string;
   email: string;
   name: string;
-}
+};
 
-interface RegisterResponse {
-  access_token: string;
-}
+type RegisterResponse = {
+  accessToken: string;
+};
 
 const handleAuthResponse = ({
-  access_token: token,
-}: LoginResponse | RegisterResponse): void => storage.setToken(token);
+  accessToken,
+}: LoginResponse | RegisterResponse): void => storage.setToken(accessToken);
 
 export const login = (body: LoginRequest): Promise<void> => {
   return Request.post<LoginResponse>("login", body).then(handleAuthResponse);
@@ -49,14 +49,14 @@ export interface AppData {
   user: User;
 }
 
-interface UserResponse {
+type UserResponse = {
   email: string;
   username: string;
   created: string;
   updated: string;
   name: string;
   id: number;
-}
+};
 
 export const getAppData = async (): Promise<AppData | null> => {
   const token = storage.getToken();

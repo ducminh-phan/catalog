@@ -5,10 +5,10 @@ import * as types from "utils/types";
 
 import type { PaginationParams } from "../utils/types";
 
-interface FetchCategoriesResponse {
-  total_categories: number;
+type FetchCategoriesResponse = {
+  totalCategories: number;
   categories: types.Category[];
-}
+};
 
 export const fetchCategories = createAsyncThunk(
   "categories/fetch",
