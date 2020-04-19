@@ -26,7 +26,7 @@ export default createReducer(initialState, (builder) =>
 
     return {
       totalCategories: payload.totalCategories,
-      categories: normalized.entities.categories ?? state.categories,
+      categories: normalized.entities.categories ?? {},
       ids: normalized.result,
     };
   }),
