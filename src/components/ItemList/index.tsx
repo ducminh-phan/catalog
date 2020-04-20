@@ -13,6 +13,7 @@ import { connect, ConnectedProps } from "react-redux";
 
 import { fetchItems } from "actions/item";
 import { useAuth } from "contexts/auth";
+import { ITEMS_PER_PAGE } from "enums";
 import { RootState } from "reducers";
 import * as types from "utils/types";
 
@@ -35,8 +36,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & ItemListProps;
 
-const limit = 2;
-
 const ItemList = (props: Props): ReactElement => {
   // eslint-disable-next-line no-shadow
   const { fetchItems, item, categoryId } = props;
@@ -46,18 +45,18 @@ const ItemList = (props: Props): ReactElement => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetchItems({ categoryId, offset, limit });
+    fetchItems({ categoryId, offset, limit: ITEMS_PER_PAGE });
   }, [fetchItems, categoryId, offset]);
 
   const { totalItems, items } = item;
-  const pageCount = Math.ceil(totalItems / limit);
+  const pageCount = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
   const handleChangePage = (
     event: ChangeEvent<unknown>,
     value: number,
   ): void => {
     setPage(value);
-    setOffset(limit * (value - 1));
+    setOffset(ITEMS_PER_PAGE * (value - 1));
   };
 
   return (

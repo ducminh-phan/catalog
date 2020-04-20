@@ -12,6 +12,7 @@ import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 
 import { fetchCategories } from "actions/category";
+import { CATEGORIES_PER_PAGE } from "enums";
 import { RootState } from "reducers";
 import * as types from "utils/types";
 
@@ -28,8 +29,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux;
 
-const limit = 2;
-
 const CategoryList = (props: Props): ReactElement => {
   // eslint-disable-next-line no-shadow
   const { fetchCategories, category } = props;
@@ -38,18 +37,18 @@ const CategoryList = (props: Props): ReactElement => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetchCategories({ offset, limit });
+    fetchCategories({ offset, limit: CATEGORIES_PER_PAGE });
   }, [fetchCategories, offset]);
 
   const { totalCategories, categories } = category;
-  const pageCount = Math.ceil(totalCategories / limit);
+  const pageCount = Math.ceil(totalCategories / CATEGORIES_PER_PAGE);
 
   const handleChangePage = (
     event: ChangeEvent<unknown>,
     value: number,
   ): void => {
     setPage(value);
-    setOffset(limit * (value - 1));
+    setOffset(CATEGORIES_PER_PAGE * (value - 1));
   };
 
   return (
