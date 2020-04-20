@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from "@material-ui/icons/Add";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { TextField } from "mui-rff";
 import React, { ReactNode } from "react";
@@ -14,12 +14,11 @@ import { connect, ConnectedProps } from "react-redux";
 
 import * as itemActions from "actions/item";
 import { useNotification } from "contexts/notification";
-import * as types from "utils/types";
 
 import { FormData, required, validate } from "./schema";
 
 const mapDispatchToProps = {
-  editItem: itemActions.editItem,
+  addItem: itemActions.addItem,
 };
 
 const connector = connect(null, mapDispatchToProps);
@@ -28,11 +27,10 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type Props = PropsFromRedux & {
   categoryId?: string;
-  item: types.Item;
 };
 
-const EditItem = (props: Props): React.ReactElement => {
-  const { categoryId, editItem, item } = props;
+const AddItem = (props: Props): React.ReactElement => {
+  const { categoryId, addItem } = props;
   const [open, setOpen] = React.useState(false);
   const { setNotification } = useNotification();
 
@@ -44,10 +42,9 @@ const EditItem = (props: Props): React.ReactElement => {
     setOpen(false);
   };
 
-  const handleEdit = async (data: FormData): Promise<void> => {
-    const resultAction = await editItem({
+  const handleAdd = async (data: FormData): Promise<void> => {
+    const resultAction = await addItem({
       categoryId,
-      itemId: item.id.toString(),
       data,
     });
 
@@ -57,12 +54,12 @@ const EditItem = (props: Props): React.ReactElement => {
       unwrapResult(resultAction);
       setNotification({
         severity: "success",
-        message: "Edit item successfully",
+        message: "Add item successfully",
       });
     } catch (e) {
       setNotification({
         severity: "error",
-        message: e.message ?? "Edit item failed",
+        message: e.message ?? "Add item failed",
       });
     }
   };
@@ -70,21 +67,20 @@ const EditItem = (props: Props): React.ReactElement => {
   return (
     <>
       <Button color="inherit" onClick={handleOpen}>
-        <EditIcon />
+        <AddIcon />
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="item-edit-form-title"
+        aria-labelledby="item-add-form-title"
         fullWidth
       >
-        <DialogTitle id="item-edit-form-title">Edit Item</DialogTitle>
+        <DialogTitle id="item-add-form-title">Add Item</DialogTitle>
         <DialogContent>
           <Form
-            onSubmit={handleEdit}
-            initialValues={item}
+            onSubmit={handleAdd}
             validate={validate}
-            render={({ handleSubmit, invalid, dirty }): ReactNode => (
+            render={({ handleSubmit, invalid }): ReactNode => (
               <form onSubmit={handleSubmit} noValidate>
                 <TextField label="Name" name="name" required={required.name} />
                 <TextField
@@ -102,11 +98,7 @@ const EditItem = (props: Props): React.ReactElement => {
                   <Button type="button" onClick={handleClose}>
                     Cancel
                   </Button>
-                  <Button
-                    color="primary"
-                    type="submit"
-                    disabled={invalid || !dirty}
-                  >
+                  <Button color="primary" type="submit" disabled={invalid}>
                     Submit
                   </Button>
                 </DialogActions>
@@ -119,4 +111,4 @@ const EditItem = (props: Props): React.ReactElement => {
   );
 };
 
-export default connector(EditItem);
+export default connector(AddItem);

@@ -15,8 +15,8 @@ import { fetchItems } from "actions/item";
 import { useAuth } from "contexts/auth";
 import { ITEMS_PER_PAGE } from "enums";
 import { RootState } from "reducers";
-import * as types from "utils/types";
 
+import AddItem from "./AddItem";
 import EditItem from "./EditItem";
 
 interface ItemListProps extends RouteComponentProps {
@@ -61,7 +61,7 @@ const ItemList = (props: Props): ReactElement => {
 
   return (
     <Paper>
-      <Box p={2}>
+      <Box p={1}>
         <List>
           {ids
             .map((id) => items[id])
@@ -78,7 +78,18 @@ const ItemList = (props: Props): ReactElement => {
               </ListItem>
             ))}
         </List>
-        <Pagination count={pageCount} page={page} onChange={handleChangePage} />
+        <List>
+          <ListItem>
+            <Pagination
+              count={pageCount}
+              page={page}
+              onChange={handleChangePage}
+            />
+            <ListItemSecondaryAction>
+              {data === null ? <div /> : <AddItem categoryId={categoryId} />}
+            </ListItemSecondaryAction>
+          </ListItem>
+        </List>
       </Box>
     </Paper>
   );

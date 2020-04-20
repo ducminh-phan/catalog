@@ -1,9 +1,11 @@
 import {
+  Box,
   Button,
   List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
+  Paper,
 } from "@material-ui/core";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import Pagination from "@material-ui/lab/Pagination";
@@ -14,7 +16,6 @@ import { connect, ConnectedProps } from "react-redux";
 import { fetchCategories } from "actions/category";
 import { CATEGORIES_PER_PAGE } from "enums";
 import { RootState } from "reducers";
-import * as types from "utils/types";
 
 const mapDispatchToProps = {
   fetchCategories,
@@ -52,23 +53,34 @@ const CategoryList = (props: Props): ReactElement => {
   };
 
   return (
-    <div>
-      <List>
-        {ids
-          .map((id) => categories[id])
-          .map((c) => (
-            <ListItem key={c.id}>
-              <ListItemText primary={c.name} secondary={c.description} />
-              <ListItemSecondaryAction>
-                <Button component={Link} to={`/categories/${c.id}`}>
-                  <ArrowRightIcon />
-                </Button>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-      </List>
-      <Pagination count={pageCount} page={page} onChange={handleChangePage} />
-    </div>
+    <Paper>
+      <Box p={1}>
+        <List>
+          {ids
+            .map((id) => categories[id])
+            .map((c) => (
+              <ListItem key={c.id}>
+                <ListItemText primary={c.name} secondary={c.description} />
+                <ListItemSecondaryAction>
+                  <Button component={Link} to={`/categories/${c.id}`}>
+                    <ArrowRightIcon />
+                  </Button>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
+        </List>
+        <List>
+          <ListItem>
+            <Pagination
+              count={pageCount}
+              page={page}
+              onChange={handleChangePage}
+            />
+            <ListItemSecondaryAction />
+          </ListItem>
+        </List>
+      </Box>
+    </Paper>
   );
 };
 

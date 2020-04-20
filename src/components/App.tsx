@@ -6,7 +6,6 @@ import {
   Button,
   Container,
   Grid,
-  Paper,
   Toolbar,
 } from "@material-ui/core";
 import { Link, Router } from "@reach/router";
@@ -35,11 +34,7 @@ function App(): ReactElement {
         <Container>
           <Grid container spacing={2}>
             <Grid item xs={6}>
-              <Paper>
-                <Box p={2}>
-                  <CategoryList />
-                </Box>
-              </Paper>
+              <CategoryList />
             </Grid>
             <Grid item xs={6}>
               <Router>

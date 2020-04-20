@@ -43,4 +43,19 @@ export const editItem = createAsyncThunk(
     ),
 );
 
-export const addItem = createAsyncThunk("item/add", () => Promise.resolve());
+type AddItemRequest = {
+  categoryId?: string;
+  data: {
+    name: string;
+    description: string;
+    price: number;
+  };
+};
+
+type AddItemResponse = types.Item;
+
+export const addItem = createAsyncThunk(
+  "item/add",
+  ({ categoryId, data }: AddItemRequest) =>
+    Request.post<AddItemResponse>(`categories/${categoryId}/items`, data),
+);

@@ -1,7 +1,8 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { normalize } from "normalizr";
 
-import { editItem, fetchItems } from "actions/item";
+import { addItem, editItem, fetchItems } from "actions/item";
+import { ITEMS_PER_PAGE } from "enums";
 import * as schemas from "utils/schemas";
 import * as types from "utils/types";
 
@@ -42,5 +43,20 @@ export default createReducer(initialState, (builder) =>
           ...normalized.entities.items,
         },
       };
+    })
+    .addCase(addItem.fulfilled, (state, action) => {
+      const { payload } = action;
+      const normalized = normalize(payload, schemas.item);
+      const { ids, items } = state;
+
+      if (ids.length < ITEMS_PER_PAGE) {
+        return {
+          ...state,
+          ids: [...ids, normalized.result],
+          items: { ...items, ...normalized.entities.items },
+        };
+      }
+
+      return state;
     }),
 );
