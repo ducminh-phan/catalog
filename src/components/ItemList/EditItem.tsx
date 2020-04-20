@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { makeRequired, makeValidate, TextField } from "mui-rff";
 import React, { ReactNode } from "react";
 import { Form } from "react-final-form";
@@ -63,15 +64,16 @@ const EditItem = (props: Props): React.ReactElement => {
 
     handleClose();
 
-    if (itemActions.editItem.fulfilled.match(resultAction)) {
+    try {
+      unwrapResult(resultAction);
       setNotification({
         severity: "success",
         message: "Edit item successfully",
       });
-    } else if (itemActions.editItem.rejected.match(resultAction)) {
+    } catch (e) {
       setNotification({
         severity: "error",
-        message: "Edit item failed",
+        message: e.message,
       });
     }
   };
