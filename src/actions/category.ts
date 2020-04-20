@@ -12,13 +12,19 @@ type FetchCategoriesResponse = {
 
 export const fetchCategories = createAsyncThunk(
   "categories/fetch",
-  ({ offset, limit }: PaginationParams) => {
-    return Request.get<FetchCategoriesResponse>(
+  ({ offset, limit }: PaginationParams) =>
+    Request.get<FetchCategoriesResponse>(
       `categories?offset=${offset}&limit=${limit}`,
-    );
-  },
+    ),
 );
 
-export const addCategory = createAsyncThunk("categories/add", () =>
-  Promise.resolve(),
+type AddCategoryRequest = {
+  name: string;
+  description: string;
+};
+
+export const addCategory = createAsyncThunk(
+  "categories/add",
+  (payload: AddCategoryRequest) =>
+    Request.post<types.Category>("categories", payload),
 );

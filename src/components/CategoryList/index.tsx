@@ -14,8 +14,11 @@ import React, { ChangeEvent, ReactElement, useEffect, useState } from "react";
 import { connect, ConnectedProps } from "react-redux";
 
 import { fetchCategories } from "actions/category";
+import { useAuth } from "contexts/auth";
 import { CATEGORIES_PER_PAGE } from "enums";
 import { RootState } from "reducers";
+
+import AddCategory from "./AddCategory";
 
 const mapDispatchToProps = {
   fetchCategories,
@@ -34,6 +37,7 @@ const CategoryList = (props: Props): ReactElement => {
   // eslint-disable-next-line no-shadow
   const { fetchCategories, category } = props;
 
+  const { data } = useAuth();
   const [offset, setOffset] = useState(0);
   const [page, setPage] = useState(1);
 
@@ -76,7 +80,9 @@ const CategoryList = (props: Props): ReactElement => {
               page={page}
               onChange={handleChangePage}
             />
-            <ListItemSecondaryAction />
+            <ListItemSecondaryAction>
+              {data === null ? <div /> : <AddCategory />}
+            </ListItemSecondaryAction>
           </ListItem>
         </List>
       </Box>
