@@ -48,7 +48,7 @@ const ItemList = (props: Props): ReactElement => {
     fetchItems({ categoryId, offset, limit: ITEMS_PER_PAGE });
   }, [fetchItems, categoryId, offset]);
 
-  const { totalItems, items } = item;
+  const { totalItems, items, ids } = item;
   const pageCount = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
   const handleChangePage = (
@@ -63,18 +63,20 @@ const ItemList = (props: Props): ReactElement => {
     <Paper>
       <Box p={2}>
         <List>
-          {Object.values(items).map((c: types.Item) => (
-            <ListItem key={c.id}>
-              <ListItemText primary={c.name} secondary={c.description} />
-              {data?.user.id === c.userId ? (
-                <ListItemSecondaryAction>
-                  <EditItem categoryId={categoryId} item={c} />
-                </ListItemSecondaryAction>
-              ) : (
-                <div />
-              )}
-            </ListItem>
-          ))}
+          {ids
+            .map((id) => items[id])
+            .map((c) => (
+              <ListItem key={c.id}>
+                <ListItemText primary={c.name} secondary={c.description} />
+                {data?.user.id === c.userId ? (
+                  <ListItemSecondaryAction>
+                    <EditItem categoryId={categoryId} item={c} />
+                  </ListItemSecondaryAction>
+                ) : (
+                  <div />
+                )}
+              </ListItem>
+            ))}
         </List>
         <Pagination count={pageCount} page={page} onChange={handleChangePage} />
       </Box>

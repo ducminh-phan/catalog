@@ -40,7 +40,7 @@ const CategoryList = (props: Props): ReactElement => {
     fetchCategories({ offset, limit: CATEGORIES_PER_PAGE });
   }, [fetchCategories, offset]);
 
-  const { totalCategories, categories } = category;
+  const { totalCategories, categories, ids } = category;
   const pageCount = Math.ceil(totalCategories / CATEGORIES_PER_PAGE);
 
   const handleChangePage = (
@@ -54,16 +54,18 @@ const CategoryList = (props: Props): ReactElement => {
   return (
     <div>
       <List>
-        {Object.values(categories).map((c: types.Category) => (
-          <ListItem key={c.id}>
-            <ListItemText primary={c.name} secondary={c.description} />
-            <ListItemSecondaryAction>
-              <Button component={Link} to={`/categories/${c.id}`}>
-                <ArrowRightIcon />
-              </Button>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
+        {ids
+          .map((id) => categories[id])
+          .map((c) => (
+            <ListItem key={c.id}>
+              <ListItemText primary={c.name} secondary={c.description} />
+              <ListItemSecondaryAction>
+                <Button component={Link} to={`/categories/${c.id}`}>
+                  <ArrowRightIcon />
+                </Button>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
       </List>
       <Pagination count={pageCount} page={page} onChange={handleChangePage} />
     </div>
