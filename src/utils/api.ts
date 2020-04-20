@@ -1,7 +1,7 @@
 import { camelToSnake, Json, snakeToCamel } from "./misc";
 import storage from "./storage";
 
-type Method = "get" | "post" | "put";
+type Method = "get" | "post" | "put" | "delete";
 
 class Request {
   static request = async <T extends Json>(
@@ -42,14 +42,21 @@ class Request {
     return Promise.reject(data);
   };
 
-  static get = <T extends Json>(endpoint: string): Promise<T> =>
+  static get = <T extends Json = Json>(endpoint: string): Promise<T> =>
     Request.request(endpoint, "get");
 
-  static post = <T extends Json>(endpoint: string, body: Json): Promise<T> =>
-    Request.request<T>(endpoint, "post", body);
+  static post = <T extends Json = Json>(
+    endpoint: string,
+    body: Json,
+  ): Promise<T> => Request.request<T>(endpoint, "post", body);
 
-  static put = <T extends Json>(endpoint: string, body: Json): Promise<T> =>
-    Request.request<T>(endpoint, "put", body);
+  static put = <T extends Json = Json>(
+    endpoint: string,
+    body: Json,
+  ): Promise<T> => Request.request<T>(endpoint, "put", body);
+
+  static delete = <T extends Json = Json>(endpoint: string): Promise<T> =>
+    Request.request(endpoint, "delete");
 }
 
 export default Request;

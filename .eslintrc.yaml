@@ -35,6 +35,12 @@ rules:
             "^(actions|assets|components|contexts|enums|reducers|store|utils)(/.*|$)",
           ]
         - ["^\\."]
+  no-param-reassign:
+    - error
+    - props: true
+      ignorePropertyModificationsFor:
+        - "draft"
+
 settings:
   react:
     version: "detect"

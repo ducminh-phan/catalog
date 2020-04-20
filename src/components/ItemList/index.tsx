@@ -17,6 +17,7 @@ import { ITEMS_PER_PAGE } from "enums";
 import { RootState } from "reducers";
 
 import AddItem from "./AddItem";
+import DeleteItem from "./DeleteItem";
 import EditItem from "./EditItem";
 
 interface ItemListProps extends RouteComponentProps {
@@ -70,6 +71,10 @@ const ItemList = (props: Props): ReactElement => {
                 <ListItemText primary={c.name} secondary={c.description} />
                 {data?.user.id === c.userId ? (
                   <ListItemSecondaryAction>
+                    <DeleteItem
+                      categoryId={categoryId}
+                      itemId={c.id.toString()}
+                    />
                     <EditItem categoryId={categoryId} item={c} />
                   </ListItemSecondaryAction>
                 ) : (

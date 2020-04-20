@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { normalize } from "normalizr";
 
-import { addItem, editItem, fetchItems } from "actions/item";
+import { addItem, deleteItem, editItem, fetchItems } from "actions/item";
 import { ITEMS_PER_PAGE } from "enums";
 import * as schemas from "utils/schemas";
 import * as types from "utils/types";
@@ -58,5 +58,11 @@ export default createReducer(initialState, (builder) =>
       }
 
       return state;
+    })
+    .addCase(deleteItem.fulfilled, (draft, action) => {
+      const { itemId } = action.meta.arg;
+      draft.ids = draft.ids.filter((id) => id.toString() !== itemId);
+      draft.totalItems -= 1;
+      delete draft.items[itemId];
     }),
 );

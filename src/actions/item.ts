@@ -59,3 +59,14 @@ export const addItem = createAsyncThunk(
   ({ categoryId, data }: AddItemRequest) =>
     Request.post<AddItemResponse>(`categories/${categoryId}/items`, data),
 );
+
+type DeleteItemRequest = {
+  categoryId?: string;
+  itemId: string;
+};
+
+export const deleteItem = createAsyncThunk(
+  "item/delete",
+  ({ categoryId, itemId }: DeleteItemRequest) =>
+    Request.delete(`categories/${categoryId}/items/${itemId}`),
+);
