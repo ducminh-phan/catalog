@@ -61,12 +61,14 @@ const Register = (): React.ReactElement => {
             render={({ handleSubmit, invalid }): ReactNode => (
               <form onSubmit={handleSubmit} noValidate>
                 <TextField
-                  label="User name"
+                  id="register-username"
+                  label="Username"
                   name="username"
                   required={required.username}
                   fullWidth
                 />
                 <TextField
+                  id="register-password"
                   label="Password"
                   name="password"
                   type="password"
@@ -74,6 +76,7 @@ const Register = (): React.ReactElement => {
                   fullWidth
                 />
                 <TextField
+                  id="register-email"
                   label="Email"
                   name="email"
                   type="email"
@@ -81,6 +84,7 @@ const Register = (): React.ReactElement => {
                   fullWidth
                 />
                 <TextField
+                  id="register-name"
                   label="Name"
                   name="name"
                   required={required.name}

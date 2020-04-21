@@ -1,10 +1,10 @@
 import React from "react";
-import { render, wait } from "test-utils";
 
 import { FetchCategoriesResponse } from "actions/category";
 import App from "components/App";
 import { CATEGORIES_PER_PAGE } from "enums";
 import Request from "utils/api";
+import { render, wait } from "utils/tests";
 
 it("gets the list of categories", async () => {
   jest

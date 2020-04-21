@@ -1,13 +1,18 @@
 import React from "react";
-import { fireEvent, render, wait, waitForElementToBeRemoved } from "test-utils";
 
 import Request from "utils/api";
 import { LoginResponse } from "utils/auth";
 import storage from "utils/storage";
+import {
+  fireEvent,
+  render,
+  wait,
+  waitForElementToBeRemoved,
+} from "utils/tests";
 
 import Login from "./Login";
 
-it("can log in", async () => {
+it("can login", async () => {
   const {
     baseElement,
     getByLabelText,

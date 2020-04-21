@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`can login 1`] = `
+exports[`can register 1`] = `
 <body
   style="padding-right: 0px; overflow: hidden;"
 >
@@ -15,7 +15,7 @@ exports[`can login 1`] = `
       <span
         class="MuiButton-label"
       >
-        Login
+        Register
       </span>
       <span
         class="MuiTouchRipple-root"
@@ -43,18 +43,18 @@ exports[`can login 1`] = `
       tabindex="-1"
     >
       <div
-        aria-labelledby="login-form-title"
+        aria-labelledby="register-form-title"
         class="MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth MuiPaper-elevation24 MuiPaper-rounded"
         role="dialog"
       >
         <div
           class="MuiDialogTitle-root"
-          id="login-form-title"
+          id="register-form-title"
         >
           <h2
             class="MuiTypography-root MuiTypography-h6"
           >
-            Login
+            Register
           </h2>
         </div>
         <div
@@ -69,8 +69,8 @@ exports[`can login 1`] = `
               <label
                 class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiFormLabel-required MuiInputLabel-required"
                 data-shrink="false"
-                for="login-username"
-                id="login-username-label"
+                for="register-username"
+                id="register-username-label"
               >
                 Username
                 <span
@@ -86,7 +86,7 @@ exports[`can login 1`] = `
                 <input
                   aria-invalid="false"
                   class="MuiInputBase-input MuiInput-input"
-                  id="login-username"
+                  id="register-username"
                   name="username"
                   required=""
                   type="text"
@@ -100,8 +100,8 @@ exports[`can login 1`] = `
               <label
                 class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiFormLabel-required MuiInputLabel-required"
                 data-shrink="false"
-                for="login-password"
-                id="login-password-label"
+                for="register-password"
+                id="register-password-label"
               >
                 Password
                 <span
@@ -117,10 +117,72 @@ exports[`can login 1`] = `
                 <input
                   aria-invalid="false"
                   class="MuiInputBase-input MuiInput-input"
-                  id="login-password"
+                  id="register-password"
                   name="password"
                   required=""
                   type="password"
+                  value=""
+                />
+              </div>
+            </div>
+            <div
+              class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            >
+              <label
+                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiFormLabel-required MuiInputLabel-required"
+                data-shrink="false"
+                for="register-email"
+                id="register-email-label"
+              >
+                Email
+                <span
+                  class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+                >
+                   
+                  *
+                </span>
+              </label>
+              <div
+                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+              >
+                <input
+                  aria-invalid="false"
+                  class="MuiInputBase-input MuiInput-input"
+                  id="register-email"
+                  name="email"
+                  required=""
+                  type="email"
+                  value=""
+                />
+              </div>
+            </div>
+            <div
+              class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            >
+              <label
+                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiFormLabel-required MuiInputLabel-required"
+                data-shrink="false"
+                for="register-name"
+                id="register-name-label"
+              >
+                Name
+                <span
+                  class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
+                >
+                   
+                  *
+                </span>
+              </label>
+              <div
+                class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+              >
+                <input
+                  aria-invalid="false"
+                  class="MuiInputBase-input MuiInput-input"
+                  id="register-name"
+                  name="name"
+                  required=""
+                  type="text"
                   value=""
                 />
               </div>
@@ -151,7 +213,7 @@ exports[`can login 1`] = `
                 <span
                   class="MuiButton-label"
                 >
-                  Login
+                  Register
                 </span>
               </button>
             </div>

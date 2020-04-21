@@ -49,7 +49,7 @@ export interface AppData {
   user: User;
 }
 
-type UserResponse = {
+export type UserResponse = {
   email: string;
   username: string;
   created: string;
