@@ -7,7 +7,6 @@ import React, {
 import { useAsync } from "react-async";
 
 import * as auth from "utils/auth";
-import storage from "utils/storage";
 
 import { useNotification } from "./notification";
 
