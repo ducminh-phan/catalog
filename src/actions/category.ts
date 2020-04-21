@@ -3,8 +3,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import Request from "utils/api";
 import * as types from "utils/types";
 
-import type { PaginationParams } from "../utils/types";
-
 export type FetchCategoriesResponse = {
   totalCategories: number;
   categories: types.Category[];
@@ -12,13 +10,13 @@ export type FetchCategoriesResponse = {
 
 export const fetchCategories = createAsyncThunk(
   "categories/fetch",
-  ({ offset, limit }: PaginationParams) =>
+  ({ offset, limit }: types.PaginationParams) =>
     Request.get<FetchCategoriesResponse>(
       `categories?offset=${offset}&limit=${limit}`,
     ),
 );
 
-type AddCategoryRequest = {
+export type AddCategoryRequest = {
   name: string;
   description: string;
 };

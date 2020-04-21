@@ -1,0 +1,382 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the list of categories correctly 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded"
+    >
+      <div
+        class="MuiBox-root MuiBox-root"
+      >
+        <ul
+          class="MuiList-root MuiList-padding"
+        >
+          <li
+            class="MuiListItem-container"
+          >
+            <div
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-secondaryAction"
+            >
+              <div
+                class="MuiListItemText-root MuiListItemText-multiline"
+              >
+                <span
+                  class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                >
+                  name 1
+                </span>
+                <p
+                  class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+                >
+                  description 1
+                </p>
+              </div>
+            </div>
+            <div
+              class="MuiListItemSecondaryAction-root"
+            >
+              <a
+                aria-disabled="false"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text"
+                href="/categories/1"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="MuiButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M10 17l5-5-5-5v10z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </a>
+            </div>
+          </li>
+          <li
+            class="MuiListItem-container"
+          >
+            <div
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-secondaryAction"
+            >
+              <div
+                class="MuiListItemText-root MuiListItemText-multiline"
+              >
+                <span
+                  class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                >
+                  name 2
+                </span>
+                <p
+                  class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+                >
+                  description 2
+                </p>
+              </div>
+            </div>
+            <div
+              class="MuiListItemSecondaryAction-root"
+            >
+              <a
+                aria-disabled="false"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text"
+                href="/categories/2"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="MuiButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M10 17l5-5-5-5v10z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </a>
+            </div>
+          </li>
+        </ul>
+        <ul
+          class="MuiList-root MuiList-padding"
+        >
+          <li
+            class="MuiListItem-container"
+          >
+            <div
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-secondaryAction"
+            >
+              <nav
+                aria-label="pagination navigation"
+                class="MuiPagination-root"
+              >
+                <ul
+                  class="MuiPagination-ul"
+                >
+                  <li>
+                    <button
+                      aria-label="Go to previous page"
+                      class="MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-page MuiPaginationItem-disabled MuiButtonBase-disabled"
+                      disabled=""
+                      tabindex="-1"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiPaginationItem-icon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      aria-current="true"
+                      aria-label="page 1"
+                      class="MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-page MuiPaginationItem-selected"
+                      tabindex="0"
+                      type="button"
+                    >
+                      1
+                      <span
+                        class="MuiTouchRipple-root"
+                      />
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      aria-label="Go to page 2"
+                      class="MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-page"
+                      tabindex="0"
+                      type="button"
+                    >
+                      2
+                      <span
+                        class="MuiTouchRipple-root"
+                      />
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      aria-label="Go to next page"
+                      class="MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-page"
+                      tabindex="0"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiPaginationItem-icon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                        />
+                      </svg>
+                      <span
+                        class="MuiTouchRipple-root"
+                      />
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div
+              class="MuiListItemSecondaryAction-root"
+            >
+              <div />
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`renders the list of categories correctly 2`] = `
+<body>
+  <div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded"
+    >
+      <div
+        class="MuiBox-root MuiBox-root"
+      >
+        <ul
+          class="MuiList-root MuiList-padding"
+        >
+          <li
+            class="MuiListItem-container"
+          >
+            <div
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-secondaryAction"
+            >
+              <div
+                class="MuiListItemText-root MuiListItemText-multiline"
+              >
+                <span
+                  class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+                >
+                  name 3
+                </span>
+                <p
+                  class="MuiTypography-root MuiListItemText-secondary MuiTypography-body2 MuiTypography-colorTextSecondary MuiTypography-displayBlock"
+                >
+                  description 3
+                </p>
+              </div>
+            </div>
+            <div
+              class="MuiListItemSecondaryAction-root"
+            >
+              <a
+                aria-disabled="false"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text"
+                href="/categories/3"
+                role="button"
+                tabindex="0"
+              >
+                <span
+                  class="MuiButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M10 17l5-5-5-5v10z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </a>
+            </div>
+          </li>
+        </ul>
+        <ul
+          class="MuiList-root MuiList-padding"
+        >
+          <li
+            class="MuiListItem-container"
+          >
+            <div
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-secondaryAction"
+            >
+              <nav
+                aria-label="pagination navigation"
+                class="MuiPagination-root"
+              >
+                <ul
+                  class="MuiPagination-ul"
+                >
+                  <li>
+                    <button
+                      aria-label="Go to previous page"
+                      class="MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-page"
+                      tabindex="0"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiPaginationItem-icon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+                        />
+                      </svg>
+                      <span
+                        class="MuiTouchRipple-root"
+                      />
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      aria-label="Go to page 1"
+                      class="MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-page"
+                      tabindex="0"
+                      type="button"
+                    >
+                      1
+                      <span
+                        class="MuiTouchRipple-root"
+                      />
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      aria-current="true"
+                      aria-label="page 2"
+                      class="MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-page MuiPaginationItem-selected"
+                      tabindex="0"
+                      type="button"
+                    >
+                      2
+                      <span
+                        class="MuiTouchRipple-root"
+                      />
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      aria-label="Go to next page"
+                      class="MuiButtonBase-root MuiPaginationItem-root MuiPaginationItem-page MuiPaginationItem-disabled MuiButtonBase-disabled"
+                      disabled=""
+                      tabindex="-1"
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiPaginationItem-icon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div
+              class="MuiListItemSecondaryAction-root"
+            >
+              <div />
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -64,7 +64,7 @@ const DeleteItem = (props: Props): React.ReactElement => {
 
   return (
     <>
-      <Button color="inherit" onClick={handleOpen}>
+      <Button data-testid="delete-item" color="inherit" onClick={handleOpen}>
         <DeleteIcon />
       </Button>
       <Dialog

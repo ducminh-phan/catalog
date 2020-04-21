@@ -66,7 +66,7 @@ const AddItem = (props: Props): React.ReactElement => {
 
   return (
     <>
-      <Button color="inherit" onClick={handleOpen}>
+      <Button data-testid="add-item" color="inherit" onClick={handleOpen}>
         <AddIcon />
       </Button>
       <Dialog
@@ -82,13 +82,20 @@ const AddItem = (props: Props): React.ReactElement => {
             validate={validate}
             render={({ handleSubmit, invalid }): ReactNode => (
               <form onSubmit={handleSubmit} noValidate>
-                <TextField label="Name" name="name" required={required.name} />
                 <TextField
+                  id="add-item-name"
+                  label="Name"
+                  name="name"
+                  required={required.name}
+                />
+                <TextField
+                  id="add-item-description"
                   label="Description"
                   name="description"
                   required={required.description}
                 />
                 <TextField
+                  id="add-item-price"
                   label="Price"
                   name="price"
                   type="number"

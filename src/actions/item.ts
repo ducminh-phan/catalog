@@ -3,13 +3,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import Request from "utils/api";
 import * as types from "utils/types";
 
-import type { PaginationParams } from "../utils/types";
-
-type FetchItemsRequest = PaginationParams & {
+type FetchItemsRequest = types.PaginationParams & {
   categoryId?: string;
 };
 
-type FetchItemsResponse = {
+export type FetchItemsResponse = {
   totalItems: number;
   items: types.Item[];
 };

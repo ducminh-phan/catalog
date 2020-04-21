@@ -72,7 +72,7 @@ const AddCategory = (props: Props): React.ReactElement => {
 
   return (
     <>
-      <Button color="inherit" onClick={handleOpen}>
+      <Button data-testid="add-category" color="inherit" onClick={handleOpen}>
         <AddIcon />
       </Button>
       <Dialog
@@ -88,8 +88,14 @@ const AddCategory = (props: Props): React.ReactElement => {
             validate={validate}
             render={({ handleSubmit, invalid }): ReactNode => (
               <form onSubmit={handleSubmit} noValidate>
-                <TextField label="Name" name="name" required={required.name} />
                 <TextField
+                  id="add-category-name"
+                  label="Name"
+                  name="name"
+                  required={required.name}
+                />
+                <TextField
+                  id="add-category-description"
                   label="Description"
                   name="description"
                   required={required.description}

@@ -69,7 +69,7 @@ const EditItem = (props: Props): React.ReactElement => {
 
   return (
     <>
-      <Button color="inherit" onClick={handleOpen}>
+      <Button data-testid="edit-item" color="inherit" onClick={handleOpen}>
         <EditIcon />
       </Button>
       <Dialog
@@ -86,13 +86,20 @@ const EditItem = (props: Props): React.ReactElement => {
             validate={validate}
             render={({ handleSubmit, invalid, dirty }): ReactNode => (
               <form onSubmit={handleSubmit} noValidate>
-                <TextField label="Name" name="name" required={required.name} />
                 <TextField
+                  id="edit-item-name"
+                  label="Name"
+                  name="name"
+                  required={required.name}
+                />
+                <TextField
+                  id="edit-item-description"
                   label="Description"
                   name="description"
                   required={required.description}
                 />
                 <TextField
+                  id="edit-item-price"
                   label="Price"
                   name="price"
                   type="number"
