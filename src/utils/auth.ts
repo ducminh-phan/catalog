@@ -6,7 +6,7 @@ export type LoginRequest = {
   password: string;
 };
 
-type LoginResponse = {
+export type LoginResponse = {
   accessToken: string;
 };
 
@@ -17,7 +17,7 @@ export type RegisterRequest = {
   name: string;
 };
 
-type RegisterResponse = {
+export type RegisterResponse = {
   accessToken: string;
 };
 

@@ -40,7 +40,6 @@ rules:
     - props: true
       ignorePropertyModificationsFor:
         - "draft"
-
 settings:
   react:
     version: "detect"

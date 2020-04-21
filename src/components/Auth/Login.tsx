@@ -59,12 +59,14 @@ const Login = (): React.ReactElement => {
             render={({ handleSubmit, invalid }): ReactNode => (
               <form onSubmit={handleSubmit} noValidate>
                 <TextField
+                  id="login-username"
                   label="Username"
                   name="username"
                   required={required.username}
                   fullWidth
                 />
                 <TextField
+                  id="login-password"
                   label="Password"
                   name="password"
                   type="password"

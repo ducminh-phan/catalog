@@ -1,14 +1,36 @@
-import { render } from "@testing-library/react";
-import { configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import React from "react";
+import { render, wait } from "test-utils";
 
-import App from "./App";
+import { FetchCategoriesResponse } from "actions/category";
+import App from "components/App";
+import { CATEGORIES_PER_PAGE } from "enums";
+import Request from "utils/api";
 
-configure({ adapter: new Adapter() });
+it("gets the list of categories", async () => {
+  jest
+    .spyOn(Request, "get")
+    .mockImplementation(
+      (): Promise<FetchCategoriesResponse> =>
+        Promise.resolve({ totalCategories: 0, categories: [] }),
+    );
 
-test("renders learn react link", () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(Request.get).toHaveBeenCalledTimes(0);
+
+  const { baseElement, getByText } = render(<App />);
+  await wait(() => getByText("Home"));
+
+  expect(Request.get).toHaveBeenCalledWith(
+    `categories?offset=0&limit=${CATEGORIES_PER_PAGE}`,
+  );
+  expect(baseElement).toMatchSnapshot();
+});
+
+it("shows Home/Login/Register", async () => {
+  const { getByText, queryByText } = render(<App />);
+
+  await wait(() => getByText("Home"));
+  expect(queryByText("Home")).toBeInTheDocument();
+  expect(queryByText("Login")).toBeInTheDocument();
+  expect(queryByText("Register")).toBeInTheDocument();
+  expect(queryByText("Cancel")).toBeNull();
 });

@@ -5,7 +5,7 @@ import * as types from "utils/types";
 
 import type { PaginationParams } from "../utils/types";
 
-type FetchCategoriesResponse = {
+export type FetchCategoriesResponse = {
   totalCategories: number;
   categories: types.Category[];
 };
