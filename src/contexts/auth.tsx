@@ -85,7 +85,8 @@ export const AuthProvider = (
   };
 
   const logout = (): void => {
-    Promise.resolve(storage.removeToken())
+    auth
+      .logout()
       .then(() =>
         Promise.resolve(
           setNotification({
